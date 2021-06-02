@@ -2,15 +2,20 @@ class Player:
     def __init__(self, intitalRow, initialColumn):
         self.rowPosition = intitalRow
         self.columnPosition = initialColumn
-#what do these do in the context of moving between rows and columns
+# what do these do in the context of moving between rows and columns
     # TODO
-    # def moveUp(self):
+
+    def moveUp(self):
+        self.rowPosition -= 1
 
     # TODO
-    # def moveDown(self):
+    def moveDown(self):
+        self.rowPosition += 1
 
     # TODO
-    # def moveLeft(self):
+    def moveLeft(self):
+        self.columnPosition -= 1
 
     # TODO
-    # def moveRight(self):
+    def moveRight(self):
+        self.columnPosition += 1

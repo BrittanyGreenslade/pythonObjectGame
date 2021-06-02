@@ -2,7 +2,7 @@ class GameBoard:
     def __init__(self):
         self.winningRow = 0
         self.winningColumn = 2
-        #this is how the borders print out to the screen - not scary! boundaries of game
+        # this is how the borders print out to the screen - not scary! boundaries of game
         self.board = [
             [" * ", " * ", "   ", " * ", " * ", " * "],
             [
@@ -36,11 +36,12 @@ class GameBoard:
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
                 if i == playerRow and j == playerColumn:
-                    print("P", end="")
+                    print(" P ", end="")
                 else:
                     print(self.board[i][j], end="")
             print("")
-#important!
+# important!
+
     def checkMove(self, testRow, testColumn):
         if self.board[testRow][testColumn].find("*") != -1:
             print("Can't move there!")
@@ -48,6 +49,11 @@ class GameBoard:
         return True
 
     # TODO
+
     # Return True if the player is in the winning column and row
     # Return False otherwise
-    # def checkWin(self, playerRow, playerColumn):
+    def checkWin(self, playerRow, playerColumn):
+        if(playerRow == 0 and playerColumn == 2):
+            return True
+        else:
+            return False
