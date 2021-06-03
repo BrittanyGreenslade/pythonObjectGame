@@ -1,6 +1,6 @@
 import gameboard
 import player
-# from input_exception import InputException
+from input_exception import InputException
 
 print("Welcome to the game!")
 print("Instructions: ")
@@ -24,31 +24,31 @@ player = player.Player(3, 2)
 # TODO
 # Move the player through the board
 while True:
-    # try:
-    board.printBoard(player.rowPosition, player.columnPosition)
-    selection = input("Make a move: ")
-    # calling checkWin fn to see if the player has won (break loop) or not (continue loop)
-    player_win = board.checkWin(player.rowPosition, player.columnPosition)
-    no_wall = board.checkMove(player.rowPosition, player.columnPosition)
-    # Check if the player has won, if so print a message and break the loop!
-    # checks if there's a wall (calls checkMove fn). I can't figure out how to continue the
-    # game when no_wall becomes false though.......
-    if(player_win == False and no_wall == True):
-        if (selection == "w" or selection == "s" or selection == "a" or selection == "d"):
-            if(selection == "w"):
-                player.moveUp()
-            elif(selection == "s"):
-                player.moveDown()
-            elif(selection == "a"):
-                player.moveLeft()
-            elif(selection == "d"):
-                player.moveRight()
-        else:
-            print("Please enter a valid selection")
-        # elif(selection != "w" or selection != "s" or selection != "a" or selection != "d"):
-        #     print("Please enter a valid move")
-    elif(player_win == True):
-        print("You did it!")
-        break
-    # except InputException:
-    #     print("Stay in the borders")
+    try:
+        board.printBoard(player.rowPosition, player.columnPosition)
+        selection = input("Make a move: ")
+        # calling checkWin fn to see if the player has won (break loop) or not (continue loop)
+        player_win = board.checkWin(player.rowPosition, player.columnPosition)
+        # Check if the player has won, if so print a message and break the loop!
+        if(player_win == False):
+            if (selection == "w" or selection == "s" or selection == "a" or selection == "d"):
+                # checks if there's a wall (calls checkMove fn) for the spot one spot away
+                # from user current spot (i.e. the spot they're trying to move to)
+                if(selection == "w" and board.checkMove(player.rowPosition - 1, player.columnPosition)):
+                    player.moveUp()
+                elif(selection == "s" and board.checkMove(player.rowPosition + 1, player.columnPosition)):
+                    player.moveDown()
+                elif(selection == "a" and board.checkMove(player.rowPosition, player.columnPosition-1)):
+                    player.moveLeft()
+                elif(selection == "d" and board.checkMove(player.rowPosition, player.columnPosition+1)):
+                    player.moveRight()
+            else:
+                # "raising" custom exception if an invalid input happens
+                raise InputException()
+        elif(player_win == True):
+            print("You did it!")
+# break stops the "true" infinite loop from happening if there's no error caught and try completes
+            break
+# telling user to input another selection. b/c "while True", try will happen again (infinite loop)
+    except InputException:
+        print("Invalid selection")

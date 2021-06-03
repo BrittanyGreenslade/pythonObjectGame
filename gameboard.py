@@ -40,7 +40,7 @@ class GameBoard:
                 else:
                     print(self.board[i][j], end="")
             print("")
-# important!
+# if find 'finds' nothing, it's = -1: so, if finds *, return false
 
     def checkMove(self, testRow, testColumn):
         if self.board[testRow][testColumn].find("*") != -1:
